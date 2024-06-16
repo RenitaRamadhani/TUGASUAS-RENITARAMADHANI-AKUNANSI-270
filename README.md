@@ -3,11 +3,12 @@
 # Kelas : Pengkodean dan Pemrograman/D #
 
 # Soal #
+Anda memiliki data mengenai jenis produk, kategori produk, stok, dan penjualan. Dari data tersebut buatkan sebuah sistem persediaan untuk membantu perusahaan dalam memantau persediaan dari produk yang dijual. Setelah membuat sistemnya, maka buat juga visualisasinya dengan ketentuan di bawah ini :
 1. Buatlah visualisasi histogram distribusi stok produk dari sistem persediaan dalam sebuah perusahaan serta interpretasikan dari hasil visualisasi tersebut!
 2. Buatlah visualisasi barplot distribusi kategori produk serta interpretasikan dari hasil visualisasi tersebut!
 3. Buatlah visualisasi scatterplot yang menampilkan kluster hasil dari algoritma KMeans serta interpretasikan hasil visualisasi tersebut!
-4. Buatlah visualisasi serta interpretasikan hasil visualisasi tersebut!
-5. Buatlah visualisasi serta interpretasikan hasil visualisasi tersebut!
+4. Buatlah visualisasi scatterplot yang menujukkan hubungan antara stok (sumbu x)dan penjualan (sumbu y) serta interpretasikan hasil visualisasi tersebut!
+5. Buatlah visualisasi boxplot yang menunjukkan distribusi penjualan dalam setiap kluster serta interpretasikan hasil visualisasi tersebut!
 
 # Cara Pengerjaan #
 import pandas as pd
@@ -74,10 +75,28 @@ plt.xlabel('Kluster')
 plt.ylabel('Penjualan')
 plt.show()
 
+# Pembersihan data #
+def pembersihan_data(filepath):
+# Load data
+df= pd.read_csv(filepath)
+    
+# Menghapus baris dengan nilai yang hilang
+df = df.dropna()
+    
+# Menghapus duplikasi
+df = df.drop_duplicates()
+    
+# Mengubah tipe data jika diperlukan (misalnya stok dan penjualan ke integer)
+df['stok'] = df['stok'].astype(int)
+df['penjualan'] = df['penjualan'].astype(int)
+    
+return df
+
+
 # Data #
 ![image](https://github.com/RenitaRamadhani/TUGASUAS-RENITARAMADHANI-AKUNANSI-270/assets/153142982/d78ada03-149a-4ea0-8c9e-2a1f2bc03b34)
 
-# Hasil #
+# Hasil 1 #
 ![Screenshot 2024-06-15 163326](https://github.com/RenitaRamadhani/TUGASUAS-RENITARAMADHANI-AKUNANSI-270/assets/153142982/221de07e-6085-4d37-99ee-5a2476f6f818)
 # Interpretasi #
 Berdasarkan histogram yang ditampilkan pada gambar di atas, berikut adalah beberapa interpretasi mengenai distribusi stok produk:
@@ -104,7 +123,7 @@ Berdasarkan histogram yang ditampilkan pada gambar di atas, berikut adalah beber
 
 Informasi ini dapat digunakan untuk menganalisis pola stok produk dan mengidentifikasi rentang stok yang paling umum, yang dapat berguna untuk perencanaan inventaris dan strategi penjualan.
 
-# Hasil #
+# Hasil 2 #
 ![Screenshot 2024-06-15 163345](https://github.com/RenitaRamadhani/TUGASUAS-RENITARAMADHANI-AKUNANSI-270/assets/153142982/6b0cf94b-0d5f-4c7e-85c4-401ecac5e2e1)
 # Interpretasi #
 Berikut adalah interpretasi dari gambar yang menampilkan barplot distribusi kategori produk:
@@ -131,7 +150,7 @@ Berikut adalah interpretasi dari gambar yang menampilkan barplot distribusi kate
 
 Informasi ini dapat digunakan untuk memahami komposisi kategori produk dalam dataset, yang bisa berguna untuk analisis lebih lanjut terkait penjualan, persediaan, dan strategi pemasaran.
 
-# Hasil #
+# Hasil 3 #
 ![Screenshot 2024-06-15 163401](https://github.com/RenitaRamadhani/TUGASUAS-RENITARAMADHANI-AKUNANSI-270/assets/153142982/299ff063-9be2-480a-b9db-fb74a744ce0a)
 # Interpretasi #
 Berdasarkan scatterplot yang menampilkan kluster hasil dari algoritma KMeans, berikut adalah beberapa interpretasi:
@@ -161,14 +180,55 @@ Berdasarkan scatterplot yang menampilkan kluster hasil dari algoritma KMeans, be
 
 Informasi ini sangat berguna untuk analisis lebih lanjut terkait bagaimana stok produk mempengaruhi penjualan dan bagaimana perusahaan dapat mengelompokkan produk mereka berdasarkan karakteristik tersebut.
 
-# Hasil #
+# Hasil 4 #
 ![Screenshot 2024-06-15 163414](https://github.com/RenitaRamadhani/TUGASUAS-RENITARAMADHANI-AKUNANSI-270/assets/153142982/45c84254-93ed-4c69-a68f-75fbfe9e2101)
 # Interpretasi #
+Gambar di atas adalah scatterplot yang menunjukkan hubungan antara "Stok" (sumbu x) dan "Penjualan" (sumbu y). Berikut adalah interpretasi dari scatterplot tersebut:
 
+1. **Hubungan Positif**: Tampaknya ada hubungan positif antara stok dan penjualan, yang berarti bahwa ketika stok meningkat, penjualan juga cenderung meningkat. Ini ditunjukkan oleh pola titik-titik yang naik dari kiri bawah ke kanan atas.
 
-# Hasil #
+2. **Distribusi Data**: Titik-titik data tersebar di sekitar garis yang menunjukkan hubungan stok-penjualan. Meskipun ada beberapa variabilitas, tren umum tetap positif.
+
+3. **Kepadatan Titik Data**: Pada stok antara sekitar 40 hingga 120, data lebih padat dan tersebar lebih merata. Namun, pada stok di atas 120, data tampaknya lebih terdistribusi dan lebih jarang.
+
+4. **Skala dan Rentang**:
+   - Stok berkisar antara sekitar 40 hingga 200.
+   - Penjualan berkisar antara sekitar 100 hingga 300.
+
+5. **Outliers**: Tampaknya ada beberapa titik yang mungkin dianggap sebagai outliers (keluar dari pola umum), tetapi secara umum data mengikuti tren positif yang kuat.
+
+6. **Implikasi Bisnis**: Dari grafik ini, kita bisa menyimpulkan bahwa meningkatkan stok mungkin membantu meningkatkan penjualan, tetapi perlu dipertimbangkan juga faktor-faktor lain yang mungkin mempengaruhi hubungan ini.
+
+Kesimpulan: Scatterplot ini menunjukkan bahwa ada hubungan positif antara stok dan penjualan, dengan penjualan meningkat seiring dengan peningkatan stok. Ini dapat memberikan wawasan bagi manajemen persediaan dan strategi penjualan.
+
+# Hasil 5 #
 ![Screenshot 2024-06-15 163433](https://github.com/RenitaRamadhani/TUGASUAS-RENITARAMADHANI-AKUNANSI-270/assets/153142982/774a9675-eefb-45ad-a00a-e94306d261d4)
 # Interpretasi #
+Gambar di atas adalah boxplot yang menunjukkan distribusi penjualan dalam setiap kluster. Berikut adalah interpretasi dari boxplot tersebut:
 
+1. **Kluster 0**:
+   - Median penjualan berada di sekitar 250.
+   - Kuartil bawah (Q1) dan kuartil atas (Q3) masing-masing sekitar 225 dan 275.
+   - Rentang interkuartil (IQR) cukup besar, menunjukkan variasi penjualan dalam kluster ini.
+   - Rentang keseluruhan penjualan adalah dari sekitar 200 hingga 300, dengan beberapa variasi di kedua ujungnya.
+
+2. **Kluster 1**:
+   - Median penjualan sekitar 125.
+   - Kuartil bawah (Q1) dan kuartil atas (Q3) masing-masing sekitar 100 dan 150.
+   - IQR lebih kecil dibandingkan dengan kluster 0, menunjukkan variasi penjualan yang lebih sedikit.
+   - Rentang keseluruhan penjualan adalah dari sekitar 75 hingga 175.
+
+3. **Kluster 2**:
+   - Median penjualan sekitar 200.
+   - Kuartil bawah (Q1) dan kuartil atas (Q3) masing-masing sekitar 175 dan 225.
+   - IQR sedikit lebih besar dibandingkan dengan kluster 1 tetapi lebih kecil dibandingkan dengan kluster 0.
+   - Rentang keseluruhan penjualan adalah dari sekitar 150 hingga 250.
+
+**Kesimpulan**:
+- **Variasi Penjualan**: Kluster 0 memiliki variasi penjualan terbesar, diikuti oleh kluster 2 dan kluster 1.
+- **Penjualan Tertinggi**: Kluster 0 memiliki median penjualan tertinggi di antara ketiga kluster, diikuti oleh kluster 2 dan kluster 1.
+- **Stabilitas Penjualan**: Kluster 1 memiliki variasi penjualan terkecil, menunjukkan bahwa penjualan dalam kluster ini lebih stabil dibandingkan dengan kluster lainnya.
+
+Boxplot ini memberikan wawasan penting tentang bagaimana penjualan didistribusikan di antara kluster yang berbeda dan menunjukkan variasi dan stabilitas penjualan dalam setiap kluster.
 
 
